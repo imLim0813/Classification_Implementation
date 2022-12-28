@@ -32,13 +32,14 @@ def main(config_):
     # Train / Test 전처리 객체 생성
     train_transform = A.Compose([
         A.Resize(loader_dict['img_size'][0], loader_dict['img_size'][1]),
-        A.augmentations.transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)),
+        A.HorizontalFlip(p=0.5),
+        A.augmentations.transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
         ToTensorV2()
     ])
 
     test_transform = A.Compose([
         A.Resize(loader_dict['img_size'][0], loader_dict['img_size'][1]),
-        A.augmentations.transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)),
+        A.augmentations.transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
         ToTensorV2()
     ])
 

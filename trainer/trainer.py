@@ -74,8 +74,8 @@ class Trainer:
             self.optimizer.step()
 
         train_loss /= len(self.data_loader)
-        train_acc = list(map(lambda x: sum(x) / len(self.data_loader), train_metric.values()))
-        print(f'Train Loss : {train_loss:.4f} | Train P.A : {train_acc:.4f}% | ', end='')
+        train_acc = list(map(lambda x: sum(x) / len(self.data_loader), train_metric.values()))[0]
+        print(f'Train Loss : {train_loss:.4f} | Train Acc : {train_acc:.4f}% | ', end='')
         self.es_log['train_loss'].append(train_loss)
 
         if self.do_validation:
@@ -119,8 +119,8 @@ class Trainer:
                     val_metric[key].append(value)
 
             val_loss /= len(self.valid_data_loader)
-            val_acc = list(map(lambda x: sum(x) / len(self.valid_data_loader), val_metric.values()))
-            print(f'Val Loss : {val_loss:.5f} | Val Acc : {val_acc:.5f}% | ', end='')
+            val_acc = list(map(lambda x: sum(x) / len(self.valid_data_loader), val_metric.values()))[0]
+            print(f'Val Loss : {val_loss:.4f} | Val Acc : {val_acc:.4f}% | ', end='')
             self.es_log['val_loss'].append(val_loss)
 
             return val_loss, val_acc

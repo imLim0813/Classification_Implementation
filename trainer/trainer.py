@@ -64,7 +64,7 @@ class Trainer:
             y_pred = self.model(x_train)
             loss = self.criterion(y_pred, y_train)
 
-            train_loss += loss.item()
+            train_loss += loss.item() * x_train.size(0)
             met_ = {f'{metric.__name__}': metric(x_train, y_train, self.model, self.device) for metric in self.metric_fn}
             for key, value in met_.items():
                 train_metric[key].append(value)
@@ -73,7 +73,7 @@ class Trainer:
             loss.backward()
             self.optimizer.step()
 
-        train_loss /= len(self.data_loader)
+        train_loss /= len(self.data_loader.dataset)
         train_acc = list(map(lambda x: sum(x) / len(self.data_loader), train_metric.values()))[0]
         print(f'Train Loss : {train_loss:.4f} | Train Acc : {train_acc:.4f}% | ', end='')
         self.es_log['train_loss'].append(train_loss)
@@ -113,12 +113,12 @@ class Trainer:
                 y_pred = self.model(x_test)
                 loss = self.criterion(y_pred, y_test)
 
-                val_loss += loss.item()
+                val_loss += loss.item() * x_test.size(0)
                 met_ = {f'{metric.__name__}': metric(x_test, y_test, self.model, self.device) for metric in self.metric_fn}
                 for key, value in met_.items():
                     val_metric[key].append(value)
 
-            val_loss /= len(self.valid_data_loader)
+            val_loss /= len(self.valid_data_loader.dataset)
             val_acc = list(map(lambda x: sum(x) / len(self.valid_data_loader), val_metric.values()))[0]
             print(f'Val Loss : {val_loss:.4f} | Val Acc : {val_acc:.4f}% | ', end='')
             self.es_log['val_loss'].append(val_loss)

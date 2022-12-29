@@ -21,13 +21,13 @@ class AlexNet(nn.Module):
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
-        x = F.dropout(F.relu(self.conv3(x)), p=0.5)
-        x = F.dropout(F.relu(self.conv4(x)), p=0.5)
+        x = F.relu(self.conv3(x))
+        x = F.relu(self.conv4(x))
         x = self.pool(F.relu(self.conv5(x)))
 
         x = x.view(x.size(0), -1)
 
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
+        x = F.dropout(F.relu(self.fc1(x)), p=0.5)
+        x = F.dropout(F.relu(self.fc2(x)), p=0.5)
+        x = self.fc3(x)
         return x

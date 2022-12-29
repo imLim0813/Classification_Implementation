@@ -7,7 +7,7 @@
     },
     "data_loader": {
         "args":{
-            "batch_size": [32, 64, 128, 256],
+            "batch_size": [128, 256],
             "img_size" : [227, 227]
         }
     },
@@ -36,6 +36,6 @@
         "save_period": 10,
 
         "monitor": "min val_loss",
-        "early_stop": 5
+        "early_stop": 15
     }
 }

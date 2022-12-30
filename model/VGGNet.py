@@ -14,9 +14,9 @@ def VGG_Block(in_channels, out_channels, repeat):
     return nn.Sequential(*vgg_block)
 
 
-class VGG16(nn.Module):
+class VGGNet(nn.Module):
     def __init__(self):
-        super(VGG16, self).__init__()
+        super(VGGNet, self).__init__()
 
         self.conv_block_1 = VGG_Block(in_channels=3, out_channels=64, repeat=2)
         self.conv_block_2 = VGG_Block(in_channels=64, out_channels=128, repeat=2)

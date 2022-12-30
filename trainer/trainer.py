@@ -65,13 +65,15 @@ class Trainer:
             loss = self.criterion(y_pred, y_train)
 
             train_loss += loss.item() * x_train.size(0)
-            met_ = {f'{metric.__name__}': metric(x_train, y_train, self.model, self.device) for metric in self.metric_fn}
-            for key, value in met_.items():
-                train_metric[key].append(value)
-
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
+
+            self.model.eval()
+            with torch.inference_mode():
+                met_ = {f'{metric.__name__}': metric(x_train, y_train, self.model, self.device) for metric in self.metric_fn}
+                for key, value in met_.items():
+                    train_metric[key].append(value)
 
         train_loss /= len(self.data_loader.dataset)
         train_acc = list(map(lambda x: sum(x) / len(self.data_loader), train_metric.values()))[0]

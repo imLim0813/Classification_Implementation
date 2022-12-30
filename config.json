@@ -1,8 +1,8 @@
 {
-    "name": "VGGNet",
+    "name": "VGGNet_BN",
 
     "arch": {
-        "type": "VGGNet",
+        "type": "VGGNet_BN",
         "args": {}
     },
     "data_loader": {
@@ -31,10 +31,8 @@
     },
     "trainer": {
         "epochs": [100],
-
         "save_dir": "saved/",
         "save_period": 10,
-
         "monitor": "min val_loss",
         "early_stop": 15
     }

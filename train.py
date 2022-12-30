@@ -5,7 +5,7 @@ import numpy as np
 import data_loader.data_loaders as module_data
 import model.loss as module_loss
 import model.metric as module_metric
-import model.AlexNet as module_arch
+import model.VGGNet as module_arch
 from parse_config import ConfigParser
 from trainer import Trainer
 from data_loader.data_loaders import make_dataloder

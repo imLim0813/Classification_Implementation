@@ -14,6 +14,7 @@ def Accuracy(x: torch.Tensor, y: torch.Tensor, model: nn.Module, device: str = d
     :param y: Validation 라벨 데이터
     :param model: Classification 모델
     :param device: GPU 설정셋
+    
     :return: Accuracy
     """
     x = x.to(device)

@@ -45,5 +45,5 @@ class VGGNet(nn.Module):
 
 
 if __name__ == '__main__':
-    model = VGG16()
+    model = VGGNet()
     summary(model, (1, 3, 224, 224))
